@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 })
 export class BookListComponent implements OnInit {
 
+  public bookSelected = false;
   public selectedBook: Book;
   public checked: boolean;
   public bookList: Book[];
@@ -26,8 +27,7 @@ export class BookListComponent implements OnInit {
   constructor(
     private getBookListService: GetBookListService,
     private removeBookService: RemoveBookService,
-    private router: Router,
-    private dialog: MatDialog
+    private router: Router
   ) { }
 
   onSelect(book: Book) {
@@ -67,8 +67,10 @@ export class BookListComponent implements OnInit {
 
   updateRemoveBookList(checked: boolean, book: Book) {
     if (checked) {
+      this.bookSelected = true;
       this.removeBookList.push(book);
     } else {
+      this.bookSelected = false;
       this.removeBookList.splice(this.removeBookList.indexOf(book), 1);
     }
   }
@@ -76,9 +78,11 @@ export class BookListComponent implements OnInit {
   updateSelected(checked: boolean) {
     if (checked) {
       this.allChecked = true;
+      this.bookSelected = true;
       this.removeBookList = this.bookList.slice();
     } else {
       this.allChecked = false;
+      this.bookSelected = false;
       this.removeBookList = [];
     }
   }

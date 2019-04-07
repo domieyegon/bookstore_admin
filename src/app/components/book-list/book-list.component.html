@@ -37,6 +37,6 @@
     </table>
   </div>
   <div style="margin-top: 10px;">
-    <button mat-raised-button class="mat-warn" (click)="removeSelectedBooks()">Delete Selected</button>
+    <button [disabled]="!bookSelected" mat-raised-button class="mat-warn" (click)="removeSelectedBooks()">Delete Selected</button>
   </div>
 </div>
