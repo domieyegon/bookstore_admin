@@ -31,7 +31,7 @@ import {EditBookService} from './service/edit-book.service';
 import { RemoveBookService } from './service/remove-book.service';
 
 import { AddNewBookComponent } from './components/add-new-book/add-new-book.component';
-import { BookListComponent, DialogResultExampleDialogComponent } from './components/book-list/book-list.component';
+import { BookListComponent } from './components/book-list/book-list.component';
 import { ViewBookComponent } from './components/view-book/view-book.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 
@@ -43,8 +43,7 @@ import { EditBookComponent } from './components/edit-book/edit-book.component';
     AddNewBookComponent,
     BookListComponent,
     ViewBookComponent,
-    EditBookComponent,
-    DialogResultExampleDialogComponent
+    EditBookComponent
   ],
   imports: [
     HttpModule,
@@ -72,6 +71,6 @@ import { EditBookComponent } from './components/edit-book/edit-book.component';
     EditBookService,
     RemoveBookService
   ],
-  bootstrap: [AppComponent, DialogResultExampleDialogComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

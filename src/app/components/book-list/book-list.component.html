@@ -1,8 +1,8 @@
 <div class="container">
   <div class="table-responsive" style="margin-top: 30px;">
-    <table id="bookListTable" class="table bordered highlight">
+    <table id="bookListTable" class="table bordered highlight" >
       <thead>
-        <tr>
+        <tr style="background-color: #3f51b5;">
           <th>
             <input type="checkbox" (change)="updateSelected($event.target.checked)">
           </th>
@@ -31,10 +31,12 @@
           <td>{{book.active}}</td>
           <td>
             <input hidden="hidden" name="id">
-            <button mat-button (click)="openDialog(book)" value="delete"><span fa fa-times></span>Delete</button>
+            <button mat-button class="mat-warn" (click)="openDialog(book)" value="delete"><span class="fa fa-times-circle" style="font-size:24px"></span></button>
           </td>
       </tbody>
     </table>
   </div>
-   <button mat-raised-button class="mat-warn" (click)="removeSelectedBooks()">Delete Selected</button>
+  <div style="margin-top: 10px;">
+    <button mat-raised-button class="mat-warn" (click)="removeSelectedBooks()">Delete Selected</button>
+  </div>
 </div>

@@ -4,7 +4,12 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../models/book';
 import { GetBookListService } from '../../service/get-book-list.service';
-import { MatDialog, MatDialogRef , MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2'
+
+
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -31,26 +36,33 @@ export class BookListComponent implements OnInit {
   }
 
   openDialog(book: Book) {
-    const dialogRef = this.dialog.open(DialogResultExampleDialogComponent);
-    dialogRef.afterClosed().subscribe(
-      result => {
-        console.log(result);
-        if (result === 'yes') {
-          this.removeBookService.sendBook(book.id).subscribe(
-            res => {
-              console.log(res);
-              this.getBookList();
-            },
-            err => {
-              console.log(err);
-            }
-          );
-        }
-      },
-      err => {
-        console.log(err);
+
+    Swal.fire({
+      title: 'Are you sure You want to delete?',
+      text: "This book will be deleted permanently!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        this.removeBookService.sendBook(book.id).subscribe(
+          res => {
+            console.log(res);
+            this.getBookList();
+          },
+          err => {
+            console.log(err);
+          }
+        );
+        Swal.fire(
+          'Deleted!',
+          'The book have been deleted succcessfully.',
+          'success'
+        )
       }
-    );
+    });
   }
 
   updateRemoveBookList(checked: boolean, book: Book) {
@@ -72,28 +84,35 @@ export class BookListComponent implements OnInit {
   }
 
   removeSelectedBooks() {
-    const dialogRef = this.dialog.open(DialogResultExampleDialogComponent);
-    dialogRef.afterClosed().subscribe(
-      result => {
-        console.log(result);
-        if (result === 'yes') {
 
-          for (const book of this.removeBookList) {
-            this.removeBookService.sendBook(book.id).subscribe(
-              res => {
-                // this.getBookList();
-              },
-              err => {
-              }
-            );
-          }
-          location.reload();
+    Swal.fire({
+      title: 'Are you sure You want to delete selected books?',
+      text: "These books will be deleted permanently!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        
+        for (const book of this.removeBookList) {
+          this.removeBookService.sendBook(book.id).subscribe(
+            res => {
+              this.getBookList();
+            },
+            err => {
+            }
+          );
         }
-      },
-      err => {
-        console.log(err);
+        
+        Swal.fire(
+          'Deleted!',
+          'The books have been deleted succcessfully.',
+          'success'
+        );
       }
-    );
+    });
   }
 
   getBookList() {
@@ -112,13 +131,4 @@ export class BookListComponent implements OnInit {
     this.getBookList();
   }
 
-}
-
-
-@Component ({
-  selector: 'app-dialog-result-example-dialog',
-  templateUrl: './dialog-result-example-dialog.html'
-})
-export class DialogResultExampleDialogComponent {
-  constructor(public dialogRef: MatDialogRef<DialogResultExampleDialogComponent>) {}
 }
