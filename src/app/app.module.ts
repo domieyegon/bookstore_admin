@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatToolbarModule,
   MatButtonModule,
+  MatCardModule
   } from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
@@ -60,7 +61,8 @@ import { EditBookComponent } from './components/edit-book/edit-book.component';
     MatFormFieldModule,
     MatSlideToggleModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [
     LoginService,
